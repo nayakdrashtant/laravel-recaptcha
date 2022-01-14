@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('posts.create');
+});
+
+Route::post('/posts',function (){
+    request()->validate([
+       'title' => 'required',
+       'body' => 'required',
+       'g-recaptcha-response' => ['required',new \App\Rules\Recaptcha()]
+    ]);
+    dd(request()->all());
 });
